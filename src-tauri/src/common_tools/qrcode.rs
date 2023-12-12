@@ -13,7 +13,7 @@ pub fn get_qrcode_with_error(text: String) -> Result<String, anyhow::Error> {
     // Encode some data into bits.
     let result: String =
         qrcode_generator::to_svg_to_string(text, QrCodeEcc::Low, 2048, None::<&str>)?;
-    let encoded: String = general_purpose::STANDARD_NO_PAD.encode(result);
+    let encoded: String = general_purpose::STANDARD.encode(result);
 
     Ok(encoded)
 }
@@ -40,7 +40,7 @@ pub fn get_barcode_with_error(text: String) -> Result<String, anyhow::Error> {
     }; // You must specify the height in pixels.
     let encoded = barcode.encode();
     let result = png.generate(&encoded[..])?;
-    let encoded: String = general_purpose::STANDARD_NO_PAD.encode(result);
+    let encoded: String = general_purpose::STANDARD.encode(result);
 
     Ok(encoded)
 }

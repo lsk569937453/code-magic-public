@@ -29,8 +29,10 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Sidebar = ({ menuList, onButtonClick }: SidebarProps) => {
+    const [selectedIndex, setSelectedIndex] = useState(0);
     const handleButtonClick = (index: number) => {
         onButtonClick(index);
+        setSelectedIndex(index);
     }
     const [showDialog, setShowDialog] = useState(false);
     const handleRightClick = (e: any) => {
@@ -67,8 +69,10 @@ const Sidebar = ({ menuList, onButtonClick }: SidebarProps) => {
                             <>
                                 {menuList.map((item, index) => (
                                     <div key={index}>
-                                        <Button key={item.menuIndex} variant="ghost" className="w-full justify-start"
+                                        <Button key={item.menuIndex} variant="ghost" className="aria-selected:bg-primary/80 hover:bg-primary/80 w-full justify-start"
                                             // onContextMenu={handleRightClick}
+                                            aria-selected={selectedIndex === item.menuIndex}
+                                            
                                             onClick={() => handleButtonClick(item.menuIndex)}
                                             >
                                             {item.label}

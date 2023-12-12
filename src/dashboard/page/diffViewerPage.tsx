@@ -47,76 +47,76 @@ export default function DiffViewerPage() {
     const oldResult = invoke("format_pretty_json", { sourceString: differValue[0] }).then((result: any) => {
       const { response_code, response_msg } = JSON.parse(result);
       if (response_code === 0) {
-        let newState = [...differValue];
-        newState[0] = response_msg;
-        setDifferValue(newState);
+        return response_msg;
+
       }
     });
     const newResult = invoke("format_pretty_json", { sourceString: differValue[1] }).then((result: any) => {
       const { response_code, response_msg } = JSON.parse(result);
       if (response_code === 0) {
-        let newState = [...differValue];
-        newState[1] = response_msg;
-        setDifferValue(newState);
+        return response_msg;
+
       }
     });;
 
     // Begin second call and store promise without waiting
     const finalResult = [await oldResult, await newResult];
+    setDifferValue(finalResult);
+
   }
   const handlFormatPrettyYamlClick = async () => {
     const oldResult = invoke("format_pretty_yaml", { sourceString: differValue[0] }).then((result: any) => {
       const { response_code, response_msg } = JSON.parse(result);
       if (response_code === 0) {
-        let newState = [...differValue];
-        newState[0] = response_msg;
-        setDifferValue(newState);
+        return response_msg;
+
       }
     });
     const newResult = invoke("format_pretty_yaml", { sourceString: differValue[1] }).then((result: any) => {
       const { response_code, response_msg } = JSON.parse(result);
       if (response_code === 0) {
-        let newState = [...differValue];
-        newState[1] = response_msg;
-        setDifferValue(newState);
+        return response_msg;
+
       }
     });;
 
     // Begin second call and store promise without waiting
     const finalResult = [await oldResult, await newResult];
+    setDifferValue(finalResult);
+
   }
   const handlFormatPrettyXmlClick = async () => {
     const oldResult = invoke("format_pretty_xml", { sourceString: differValue[0] }).then((result: any) => {
       const { response_code, response_msg } = JSON.parse(result);
+
+      console.log(response_msg);
       if (response_code === 0) {
-        let newState = [...differValue];
-        newState[0] = response_msg;
-        setDifferValue(newState);
+        return response_msg;
       }
     });
     const newResult = invoke("format_pretty_xml", { sourceString: differValue[1] }).then((result: any) => {
       const { response_code, response_msg } = JSON.parse(result);
+      console.log(response_msg);
+
       if (response_code === 0) {
-        let newState = [...differValue];
-        newState[1] = response_msg;
-        setDifferValue(newState);
+        return response_msg;
       }
     });;
 
-    // Begin second call and store promise without waiting
     const finalResult = [await oldResult, await newResult];
+    setDifferValue(finalResult);
   }
   const differValueOnChange = (v: any) => {
     console.log(v);
     setDifferValue(v);
   }
   return (<div className="p-10 flex flex-col h-[calc(100vh-30px)]">
-    <div className="basis-11/12 mb-10 overflow-auto">
+    <div className="basis-11/12 mb-10">
       <DiffEditor
-
+        // className="w-full h-full"
         value={differValue}
-        height="1000px"
-        width="1000px"
+        height="100%"
+        width="100%"
         mode={currentFormat}
         theme={theme === "dark" ? "monokai" : "github"}
         setOptions={{
