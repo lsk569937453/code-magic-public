@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card"
 import AceEditor from "react-ace";
 import { useTheme } from "next-themes"
 import { useToast } from "@/components/ui/use-toast"
+
 import "ace-builds/src-noconflict/snippets/xml";
 import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
@@ -74,6 +75,7 @@ export default function FormatJsonPage() {
                         enableSnippets: false,
                         showLineNumbers: true,
                         tabSize: 2,
+                        useWorker: false 
                         }}
 
                 />

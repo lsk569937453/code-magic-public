@@ -4,6 +4,8 @@ use crate::common_tools::base64::base64_encode_of_image_with_error;
 use crate::common_tools::base64::base64_encode_with_error;
 use crate::common_tools::base64::base64_save_image_with_error;
 use crate::common_tools::base_response::BaseResponse;
+use crate::common_tools::code_full_half::to_cdb_with_error;
+use crate::common_tools::code_full_half::to_dbc_with_error;
 use crate::common_tools::crypto_algorithm::get_sm2_keypair_with_error;
 use crate::common_tools::crypto_algorithm::sm2_decrypt_with_error;
 use crate::common_tools::crypto_algorithm::sm2_encrypt_with_error;
@@ -20,11 +22,17 @@ use crate::common_tools::qrcode::export_barcode_with_error;
 use crate::common_tools::qrcode::export_qrcode_with_error;
 use crate::common_tools::qrcode::get_barcode_with_error;
 use crate::common_tools::qrcode::get_qrcode_with_error;
+use crate::common_tools::sql_lite::get_menu_config_with_error;
+use crate::common_tools::sql_lite::set_menu_index_with_error;
+use crate::common_tools::sql_lite::GetMenuConfigReq;
 use crate::common_tools::timestamp::format_datetime_to_timestamp_with_error;
 use crate::common_tools::timestamp::format_timestamp_to_datetime_with_error;
 use crate::common_tools::timestamp::get_current_timestamp_with_error;
 use crate::common_tools::urlencode::url_decode_with_error;
 use crate::common_tools::urlencode::url_encode_with_error;
+
+use crate::sql_lite::connection::{SqlLite, SqlLiteState};
+use tauri::State;
 #[tauri::command]
 pub fn base64_encode(source_string: String) -> String {
     match base64_encode_with_error(source_string) {
@@ -47,6 +55,44 @@ pub fn base64_encode(source_string: String) -> String {
 #[tauri::command]
 pub fn base64_decode(source_string: String) -> String {
     match base64_decode_with_error(source_string) {
+        Ok(item) => {
+            let res = BaseResponse {
+                response_code: 0,
+                response_msg: item,
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+        Err(e) => {
+            let res = BaseResponse {
+                response_code: 1,
+                response_msg: e.to_string(),
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+    }
+}
+#[tauri::command]
+pub fn to_cdb(source_string: String) -> String {
+    match to_cdb_with_error(source_string) {
+        Ok(item) => {
+            let res = BaseResponse {
+                response_code: 0,
+                response_msg: item,
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+        Err(e) => {
+            let res = BaseResponse {
+                response_code: 1,
+                response_msg: e.to_string(),
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+    }
+}
+#[tauri::command]
+pub fn to_dbc(source_string: String) -> String {
+    match to_dbc_with_error(source_string) {
         Ok(item) => {
             let res = BaseResponse {
                 response_code: 0,
@@ -472,6 +518,51 @@ pub fn format_pretty_xml(source_string: String) -> String {
 #[tauri::command]
 pub fn get_about_version() -> String {
     match get_about_version_with_error() {
+        Ok(item) => {
+            let res = BaseResponse {
+                response_code: 0,
+                response_msg: item,
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+        Err(e) => {
+            let res = BaseResponse {
+                response_code: 1,
+                response_msg: e.to_string(),
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+    }
+}
+#[tauri::command]
+pub fn get_menu_config(
+    state: State<SqlLiteState>,
+    get_menu_config_reqs: Vec<GetMenuConfigReq>,
+) -> String {
+    match get_menu_config_with_error(state, get_menu_config_reqs) {
+        Ok(item) => {
+            let res = BaseResponse {
+                response_code: 0,
+                response_msg: item,
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+        Err(e) => {
+            let res = BaseResponse {
+                response_code: 1,
+                response_msg: e.to_string(),
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+    }
+}
+#[tauri::command]
+pub fn set_menu_index(
+    state: State<SqlLiteState>,
+    source_index: i32,
+    dst_menu_index: i32,
+) -> String {
+    match set_menu_index_with_error(state, source_index, dst_menu_index) {
         Ok(item) => {
             let res = BaseResponse {
                 response_code: 0,

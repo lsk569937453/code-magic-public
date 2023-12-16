@@ -1,26 +1,23 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+use std::sync::Mutex;
 use std::time::Duration;
 mod common_tools;
-
+mod sql_lite;
+mod vojo;
 use crate::common_tools::cmd::*;
-// Prevents additional console window on Windows in release, DO NOT REMOVE!!
 use log::LevelFilter;
 #[macro_use]
 extern crate anyhow;
 #[macro_use]
 extern crate log;
+use crate::sql_lite::connection::{SqlLite, SqlLiteState};
+use std::sync::RwLock;
 use tauri::Manager;
 use tauri::SystemTray;
-use tauri::{CustomMenuItem, Menu, Submenu, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
+use tauri::{CustomMenuItem, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 use tokio::time::sleep;
-
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
-fn main() {
+fn main() -> Result<(), anyhow::Error> {
     let quit = CustomMenuItem::new("quit".to_string(), "退出");
     let show = CustomMenuItem::new("show".to_string(), "显示");
     let tray_menu = SystemTrayMenu::new()
@@ -28,8 +25,10 @@ fn main() {
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(quit);
     let system_tray = SystemTray::new().with_menu(tray_menu);
-
+    let sql_lite = SqlLite::new()?;
+    let sql_lite_state = SqlLiteState(Mutex::new(sql_lite));
     tauri::Builder::default()
+        .manage(sql_lite_state)
         .plugin(
             tauri_plugin_log::Builder::default()
                 .level(LevelFilter::Info)
@@ -86,11 +85,12 @@ fn main() {
             _ => {}
         })
         .invoke_handler(tauri::generate_handler![
-            greet,
             base64_encode,
             base64_decode,
             base64_encode_of_image,
             base64_save_image,
+            to_cdb,
+            to_dbc,
             url_encode,
             url_decode,
             get_current_timestamp,
@@ -110,8 +110,11 @@ fn main() {
             format_pretty_json,
             format_pretty_yaml,
             format_pretty_xml,
-            get_about_version
+            get_about_version,
+            get_menu_config,
+            set_menu_index
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+    Ok(())
 }

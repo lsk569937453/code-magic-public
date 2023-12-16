@@ -2,6 +2,9 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { invoke } from "@tauri-apps/api/tauri";
+
 import {
     Dialog,
     DialogClose,
@@ -12,16 +15,28 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import React, { useState } from "react";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import React, { useEffect, useState } from "react";
 import {
     ContextMenu,
     ContextMenuContent,
     ContextMenuItem,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu"
+import { useToast } from "@/components/ui/use-toast"
+
 interface MenuItem {
     label: string;
     menuIndex: number;
+    sourceIndex: number;
 }
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
     menuList: MenuItem[];
@@ -29,15 +44,60 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Sidebar = ({ menuList, onButtonClick }: SidebarProps) => {
+    const [currentMenuList, setCurrentMenuList] = useState<any>([]);
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [clickedSourceIndex, setClickedSourceIndex] = useState(0);
+    const [changedMenuIndex, setChangedMenuIndex] = useState("");
+    const { toast } = useToast()
+
+    useEffect(() => {
+        setCurrentMenuList(menuList);
+    }, [menuList]);
     const handleButtonClick = (index: number) => {
         onButtonClick(index);
         setSelectedIndex(index);
     }
     const [showDialog, setShowDialog] = useState(false);
-    const handleRightClick = (e: any) => {
+    const handleRightClick = async (e: any, index: number) => {
+        setClickedSourceIndex(index);
+        const aa = menuList.filter(item => item.sourceIndex === index)[0].menuIndex;
+        console.log("aa is :" + aa.toString)
+        setChangedMenuIndex(aa.toString());
         setShowDialog(true);
         e.preventDefault()
+    }
+    const handleChangeMenuIndexClick = async () => {
+        const sourceMenuIndex = menuList.filter(item => item.sourceIndex === clickedSourceIndex)[0].menuIndex;
+        if (sourceMenuIndex == parseInt(changedMenuIndex)) {
+            toast({
+                variant: "destructive",
+                title: "错误信息",
+                description: "修改后的菜单号和修改前的一样！",
+            })
+            return;
+        }
+
+        const { response_code, response_msg } = JSON.parse(await invoke("set_menu_index", { sourceIndex: clickedSourceIndex, dstMenuIndex: parseInt(changedMenuIndex) }));
+        console.log(response_code);
+        console.log(response_msg);
+        setShowDialog(false);
+
+        if (response_code === 0) {
+            window.location.reload();
+
+        }
+
+    }
+    const dialogGetSourceIndex = () => {
+        console.log("m:" + JSON.stringify(menuList));
+        console.log("c:" + clickedSourceIndex);
+        const index = menuList.filter(item => item.sourceIndex === clickedSourceIndex)[0].menuIndex;
+        console.log("i:" + index);
+
+        let res = (index === undefined) ? 0 : index;
+
+        console.log("r:" + res.toString());
+        return res.toString();
     }
     return (
         <div className={"pb-12 h-screen flex col-span-2 sticky top-0 overflow-auto"}>
@@ -49,18 +109,34 @@ const Sidebar = ({ menuList, onButtonClick }: SidebarProps) => {
                     <Dialog open={showDialog} onOpenChange={setShowDialog} >
                         <DialogContent className="sm:max-w-md">
                             <DialogHeader>
-                                <DialogTitle>更新菜单排列</DialogTitle>
-                                <DialogDescription>
-                                    This action cannot be undone. Are you sure you want to permanently
-                                    delete this file from our servers?
-                                </DialogDescription>
+                                <DialogTitle>更新菜单序号</DialogTitle>
                             </DialogHeader>
-                            <DialogFooter className="sm:justify-start">
-                                <DialogClose asChild>
-                                    <Button type="button" variant="secondary" onClick={() => { }}>
-                                        Close
-                                    </Button>
-                                </DialogClose>
+                            <div className="grid gap-4 py-4">
+
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="menuIndex" className="text-left">
+                                        菜单序号
+                                    </Label>
+                                    <Select   value={changedMenuIndex} defaultValue={changedMenuIndex} onValueChange={value => setChangedMenuIndex(value)}>
+                                        <SelectTrigger className="col-span-3">
+                                            <SelectValue placeholder="Select a fruit" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                {menuList.map((item, index) => (
+                                                    <SelectItem key={index} value={item.menuIndex.toString()}>
+                                                        {item.label}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
+                                    <div className="col-span-4 text-red-500 text-xs">** 如果当前是2号菜单与7号菜单项交换,则2号变为7号菜单,3,4,5,6号菜单变为2,3,4,5号菜单</div>
+                                </div>
+                            </div>
+
+                            <DialogFooter >
+                                <Button type="submit" onClick={handleChangeMenuIndexClick}>保存修改</Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
@@ -70,11 +146,11 @@ const Sidebar = ({ menuList, onButtonClick }: SidebarProps) => {
                                 {menuList.map((item, index) => (
                                     <div key={index}>
                                         <Button key={item.menuIndex} variant="ghost" className="aria-selected:bg-primary/80 hover:bg-primary/80 w-full justify-start"
-                                            // onContextMenu={handleRightClick}
+                                            onContextMenu={(e) => handleRightClick(e, item.sourceIndex)}
                                             aria-selected={selectedIndex === item.menuIndex}
-                                            
+
                                             onClick={() => handleButtonClick(item.menuIndex)}
-                                            >
+                                        >
                                             {item.label}
                                         </Button>
 

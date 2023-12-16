@@ -93,10 +93,10 @@ export function Base64ImagePage() {
 
             <div className="h-full flex flex-col justify-center gap-4 basis-1/6 ">
                 <Button className="basis-1/7 " onClick={handleConvertButtonClick}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-primary-foreground" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 17l5-5-5-5M6 17l5-5-5-5" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-primary-foreground" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 17l5-5-5-5M6 17l5-5-5-5" /></svg>
                 </Button>
                 <Button className="basis-1/7" onClick={handleReverseButtonClick}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-primary-foreground" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5" />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-primary-foreground" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5" />
                     </svg>
                 </Button>
             </div>
