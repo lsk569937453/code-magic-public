@@ -31,7 +31,7 @@ export default function QrcodePage() {
         if (response_code === 0) {
             setQrcodeResult("svg+xml;base64," + response_msg);
         }
-        setFlags(1);
+        setFlags(0);
 
     }
     const handleBarcodeButtonClick = async () => {

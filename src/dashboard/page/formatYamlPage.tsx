@@ -73,6 +73,7 @@ export default function FormatYamlPage() {
                         enableSnippets: false,
                         showLineNumbers: true,
                         tabSize: 2,
+                        useWorker: false 
                         }}
 
                 />

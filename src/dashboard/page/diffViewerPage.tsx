@@ -38,7 +38,7 @@ export default function DiffViewerPage() {
       handlFormatPrettyJsonClick();
     } else if (currentFormat === "yaml") {
       handlFormatPrettyYamlClick();
-    } else {
+    } else if (currentFormat === "xml") {
       handlFormatPrettyXmlClick();
     }
 
@@ -46,16 +46,21 @@ export default function DiffViewerPage() {
   const handlFormatPrettyJsonClick = async () => {
     const oldResult = invoke("format_pretty_json", { sourceString: differValue[0] }).then((result: any) => {
       const { response_code, response_msg } = JSON.parse(result);
+      console.log(response_msg);
       if (response_code === 0) {
         return response_msg;
-
+      } else {
+        return differValue[0];
       }
     });
     const newResult = invoke("format_pretty_json", { sourceString: differValue[1] }).then((result: any) => {
       const { response_code, response_msg } = JSON.parse(result);
+      console.log(response_msg);
+
       if (response_code === 0) {
         return response_msg;
-
+      } else {
+        return differValue[1];
       }
     });;
 
@@ -69,7 +74,8 @@ export default function DiffViewerPage() {
       const { response_code, response_msg } = JSON.parse(result);
       if (response_code === 0) {
         return response_msg;
-
+      } else {
+        return differValue[0];
       }
     });
     const newResult = invoke("format_pretty_yaml", { sourceString: differValue[1] }).then((result: any) => {
@@ -77,6 +83,9 @@ export default function DiffViewerPage() {
       if (response_code === 0) {
         return response_msg;
 
+      }
+      else {
+        return differValue[1];
       }
     });;
 
@@ -92,6 +101,8 @@ export default function DiffViewerPage() {
       console.log(response_msg);
       if (response_code === 0) {
         return response_msg;
+      } else {
+        return differValue[0];
       }
     });
     const newResult = invoke("format_pretty_xml", { sourceString: differValue[1] }).then((result: any) => {
@@ -101,7 +112,10 @@ export default function DiffViewerPage() {
       if (response_code === 0) {
         return response_msg;
       }
-    });;
+      else {
+        return differValue[1];
+      }
+    });
 
     const finalResult = [await oldResult, await newResult];
     setDifferValue(finalResult);
