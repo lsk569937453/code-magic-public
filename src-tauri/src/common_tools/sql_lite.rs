@@ -136,8 +136,14 @@ pub fn set_menu_index_with_error(
             params![menu_config.menu_index, menu_config.source_index],
         )?;
     }
-    // 1 2 3 4 5 6 7 8    2->7
-    // 1 2 3 4 5 6 7 8    7->2
 
+    Ok(())
+}
+pub fn reset_menu_index_with_error(state: State<SqlLiteState>) -> Result<(), anyhow::Error> {
+    let sql_lite = state.0.lock().map_err(|e| anyhow!("lock error"))?;
+
+    let connection = &sql_lite.connection;
+    let mut statement =
+        connection.execute("update menu_config set menu_index=source_index", params![])?;
     Ok(())
 }

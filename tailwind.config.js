@@ -3,6 +3,7 @@ module.exports = {
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+   
     container: {
       center: true,
       padding: "2rem",
@@ -44,6 +45,9 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        searchMarkerColor:{
+          DEFAULT: "hsl(var(--searchMarkerColor))"
         },
       },
       borderRadius: {

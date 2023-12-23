@@ -32,6 +32,7 @@ import {
     ContextMenuTrigger,
 } from "@/components/ui/context-menu"
 import { useToast } from "@/components/ui/use-toast"
+import { useTranslation, Trans } from "react-i18next";
 
 interface MenuItem {
     label: string;
@@ -48,6 +49,8 @@ const Sidebar = ({ menuList, onButtonClick }: SidebarProps) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [clickedSourceIndex, setClickedSourceIndex] = useState(0);
     const [changedMenuIndex, setChangedMenuIndex] = useState("");
+    const { t, i18n } = useTranslation();
+
     const { toast } = useToast()
 
     useEffect(() => {
@@ -88,23 +91,13 @@ const Sidebar = ({ menuList, onButtonClick }: SidebarProps) => {
         }
 
     }
-    const dialogGetSourceIndex = () => {
-        console.log("m:" + JSON.stringify(menuList));
-        console.log("c:" + clickedSourceIndex);
-        const index = menuList.filter(item => item.sourceIndex === clickedSourceIndex)[0].menuIndex;
-        console.log("i:" + index);
 
-        let res = (index === undefined) ? 0 : index;
-
-        console.log("r:" + res.toString());
-        return res.toString();
-    }
     return (
         <div className={"pb-12 h-screen flex col-span-2 sticky top-0 overflow-auto"}>
             <div className="space-y-4 py-4">
                 <div className="px-3 py-2">
                     <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-                        常用工具
+                        {t("menu.title")}
                     </h2>
                     <Dialog open={showDialog} onOpenChange={setShowDialog} >
                         <DialogContent className="sm:max-w-md">
@@ -114,10 +107,10 @@ const Sidebar = ({ menuList, onButtonClick }: SidebarProps) => {
                             <div className="grid gap-4 py-4">
 
                                 <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label htmlFor="menuIndex" className="text-left">
+                                    <Label htmlFor="menuIndex" className="text-left">  
                                         菜单序号
                                     </Label>
-                                    <Select   value={changedMenuIndex} defaultValue={changedMenuIndex} onValueChange={value => setChangedMenuIndex(value)}>
+                                    <Select value={changedMenuIndex} defaultValue={changedMenuIndex} onValueChange={value => setChangedMenuIndex(value)}>
                                         <SelectTrigger className="col-span-3">
                                             <SelectValue placeholder="Select a fruit" />
                                         </SelectTrigger>
@@ -151,8 +144,7 @@ const Sidebar = ({ menuList, onButtonClick }: SidebarProps) => {
 
                                             onClick={() => handleButtonClick(item.menuIndex)}
                                         >
-                                            {item.label}
-                                        </Button>
+                                            {t("menu." + item.sourceIndex)}                                        </Button>
 
                                     </div>
 

@@ -19,23 +19,25 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog"
+import { useTranslation, Trans } from "react-i18next";
 
 export function AboutDialog() {
   const [updateText, setUpdateText] = useState("")
   const [version, setVersion] = useState("")
   const [name, setName] = useState("")
   const [tauriVersion, setTauriVersion] = useState("")
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     loadVersion()
   }, [])
-  const loadVersion=async()=>{
+  const loadVersion = async () => {
     const { response_code, response_msg } = JSON.parse(await invoke("get_about_version"));
     console.log(response_code);
     console.log(response_msg);
 
     if (response_code === 0) {
-        setVersion(response_msg);
+      setVersion(response_msg);
     }
   }
   return (
@@ -49,32 +51,32 @@ export function AboutDialog() {
           CodeMagic
           <span className="flex gap-1 font-mono text-xs font-medium">
             Version {version}
-            
+
           </span>
         </DialogTitle>
 
         <DialogDescription className=" text-foreground">
-          本地离线小工具库。
+          {t('aboutDialog.doc')}
         </DialogDescription>
 
         <span className="text-xs text-gray-400">{updateText}</span>
         <DialogDescription className="flex flex-row"></DialogDescription>
       </DialogHeader>
 
-      
+
       <DialogFooter className="flex flex-row items-center border-t pt-2 text-slate-400 ">
         <div className="mr-auto flex flex-row gap-2">
           <HomeIcon
             className="h-5 w-5 cursor-pointer transition hover:text-slate-300"
-            onClick={() => open("https://github.com/agmmnn/tauri-ui")}
+            onClick={() => open("https://github.com/lsk569937453/code-magic-public")}
           />
           <GithubIcon
             className="h-5 w-5 cursor-pointer transition hover:text-slate-300 "
-            onClick={() => open("https://github.com/agmmnn/tauri-ui")}
+            onClick={() => open("https://github.com/lsk569937453/code-magic-public")}
           />
         </div>
 
-     
+
         <DialogPrimitive.Close
           type="submit"
           className={buttonVariants({ variant: "ghost", className: "h-7" })}

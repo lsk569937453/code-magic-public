@@ -21,26 +21,19 @@ import {
 import { Icons } from "@/components/icons"
 import { useTranslation, Trans } from "react-i18next";
 
-export function MenuModeToggle() {
-  const { setTheme, theme } = useTheme()
+export function LanguageMenu() {
   const { t, i18n } = useTranslation();
 
   return (
     <MenubarMenu>
-      <MenubarTrigger>{t('toolBar.theme.name')}</MenubarTrigger>
+      <MenubarTrigger>{t('toolBar.language.name')}</MenubarTrigger>
       <MenubarContent forceMount>
-        <MenubarRadioGroup value={theme}>
-          <MenubarRadioItem value="light" onClick={() => setTheme("light")}>
-            <SunIcon className="mr-2 h-4 w-4" />
-            <span>{t('toolBar.theme.first_item')}</span>
+        <MenubarRadioGroup value={i18n.language}>
+          <MenubarRadioItem value="en" onClick={() =>i18n.changeLanguage("en")}>
+            <span>{t('toolBar.language.english')}</span>
           </MenubarRadioItem>
-          <MenubarRadioItem value="dark" onClick={() => setTheme("dark")}>
-            <MoonIcon className="mr-2 h-4 w-4" />
-            <span>{t('toolBar.theme.second_item')}</span>
-          </MenubarRadioItem>
-          <MenubarRadioItem value="system" onClick={() => setTheme("system")}>
-            <LaptopIcon className="mr-2 h-4 w-4" />
-            <span>{t('toolBar.theme.third_item')}</span>
+          <MenubarRadioItem value="zh" onClick={() => i18n.changeLanguage("zh")}>
+            <span>{t('toolBar.language.chinese')}</span>
           </MenubarRadioItem>
         </MenubarRadioGroup>
       </MenubarContent>

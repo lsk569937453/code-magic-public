@@ -1,0 +1,181 @@
+{
+  "toastMessage": {
+    "errorMessageTile": "Error Message"
+  },
+ 
+  "toolBar": {
+    "app": {
+      "name": "App",
+      "first_item": "About App",
+      "second_item": "Preferences"
+    },
+    "theme": {
+      "name": "Theme",
+      "first_item": "light",
+      "second_item": "dark",
+      "third_item": "system"
+    },
+    "language": {
+      "name": "Langugage",
+      "english": "English",
+      "chinese": "Chinese"
+    }
+  },
+  "menu": {
+    "title": "Menu",
+    "0": "Convert Tools",
+    "1": "Format",
+    "2": "Url Encode/Decode",
+    "3": "Message Digest",
+    "4": "Timestamp",
+    "5": "Qrcode/Barcode",
+    "6": "Color Palette",
+    "7": "Text Compare",
+    "8": "Encrypt Tools"
+  },
+  "aboutDialog": {
+    "doc": "Local offline tools."
+  },
+  "preferenceDialog": {
+    "resetMenuIndexButtonText": "Reset Menu Index"
+  },
+  "convertToolsPage": {
+    "base64TextTabName": "Base64 Text",
+    "base64ImageTabName": "Base64 Image",
+    "halfFullTabName": "Half Full Code",
+    "regexName":"Regex"
+
+  },
+  "formatToolsPage": {
+    "buttonText": "Format",
+    "formatInputPlaceHolder":"Please type the formatted text."
+
+  },
+  "regexPage":{
+    "regexInputPlaceHolder":"Please type the regex expression.",
+    "testInputPlaceHolder":"Please type the test text."
+
+  },
+  "base64TextPage": {
+    "codeButtonText": "Encode",
+    "decodeButtonText": "Decode",
+    "inputTextPlaceHolder": "Please input the source text.",
+    "sourceTextNotEmptyMessageBody":"Please type the source text."
+
+  },
+  "base64ImagePage": {
+    "imageSelectButtonText": "Select Image",
+    "downloadButtonText": "Download",
+    "coppyButtonText": "Copy",
+    "inputTextPlaceHolder":"Please input the source text.",
+    "base64ShouldNotEmptyMessageBody":"Please type the base64 string。",
+    "imageShouldNotEmptyMessageBody":"Please select the picture。",
+    "base64ShouldValidMessageBody":"Please type the valid base64 string。"
+  },
+  "halfFullPage": {
+    "inputTextPlaceHolder": "Please input the source text.",
+    "codeButtonText": "Half to Full",
+    "decodeButtonText": "Full to Half",
+    "sourceNotEmptyMessageBody":"Please type the text."
+
+  },
+  "urlEncodePage": {
+    "codeButtonText": "Encode",
+    "decodeButtonText": "Decode",
+    "inputTextPlaceHolder": "Please input the source text.",
+    "sourceNotEmptyMessageBody":"Please type the text."
+
+  },
+  "messageDigestPage": {
+    "md5InputTextHolder": "Please input the source text.",
+    "orText": "or",
+    "selectedShowText": "The count of selected file list is:",
+    "selectButtonText": "Select File",
+    "tipsText": "Tips: Input or file should not be null,click calculate button to get result.",
+    "calculateButtonText": "Calculate",
+    "sourceNotEmptyMessageBody":"Please type the source text or select file.",
+
+    "tableTitles": {
+      "first": "File Path or Name",
+      "second": "MD5",
+      "third": "SHA256"
+    }
+  },
+  "jsonFormatPage":{
+    "sourceNotEmptyMessageBody":"Please type the text.",
+    "sourceNotValidMessageBody":"Please type the valid JSON string."
+
+  },
+  "xmlFormatPage":{
+    "sourceNotEmptyMessageBody":"Please type the text.",
+    "sourceNotValidMessageBody":"Please type the valid XML string."
+  },
+  "yamlFormatPage":{
+    "sourceNotEmptyMessageBody":"Please type the text.",
+    "sourceNotValidMessageBody":"Please type the valid YAML string."
+  },
+  "timestampPage": {
+    "currentTimestampText": "Current Timestamp",
+    "timestampDivText": "Timestamp",
+    "timestampInputHolder": "Please type the timestamp.",
+    "timestampButtonText": "Convert",
+    "dateDivText": "Date",
+    "DateInputHolder": "YYYY-MM-DD HH:MM:SS"
+  },
+  "qrcodePage": {
+    "qrcodeButtonText": "Generate Qrcode",
+    "barcodeButtonText": "Generate Barcode",
+    "qrcodeInputTextHolder": "Please input the source text.",
+    "exportButtonText": "Export Image",
+    "filePathDivText": "Exported File Path:",
+    "barcodeTips": "By default, the barcode uses the 39 barcode: including numbers from 0 to 9, English letters from uppercase A to Z, \"+\", \"-\", \"/\", \"%\", \"$\", \".\", and space characters. (Space), etc., a total of 44 sets of codes.",
+    "sourceNotEmptyMessageBody":"Please type the text."
+
+  },
+  "differViewPage": {
+    "formatButtonText": "Format"
+  },
+  "encryptToolsPage": {
+    "sm2Page": {
+      "inputTextPlaceHolder": "Please input the source text.",
+      "generatePublicKeyButtonText": "Generate Random Key(HEX)",
+      "publicKeyInputTextHolder": "Please input the public key.",
+      "privateKeyInputTextHolder": "Please input the private key.",
+      "encryptButtonText": "Encrypt",
+      "decryptButtonText": "Decrypt",
+      "inputSeletectDivText": "Input Format",
+      "outputSeletectDivText": "Output Format",
+      "publickKeySeletectDivText": "Publick Key Format",
+      "privateKeySeletectDivText": "Private Key Format",
+      "encryptOrderSelectDivText": "Order",
+      "nocodeText": "No Code",
+      "hexCodeText": "Hex",
+      "base64CodeText": "Base64",
+      "sourceAndPublicKeyNotEmptyMessageBody":"The source text and public key cannot be empty.",
+      "sourceAndPrivateKeyNotEmptyMessageBody":"The source text and private key cannot be empty."
+    },
+    "sm3Page": {
+      "inputTextPlaceHolder": "Please input the source text.",
+      "encryptButtonText": "Encrypt",
+      "sourceNotEmptyMessageBody":"Please type the text."
+
+    },
+    "sm4Page": {
+      "inputTextPlaceHolder": "Please input the source text.",
+      "keyInputTextHolder": "Please input the key.",
+      "ivInputTextHolder": "Please input the IV.",
+      "encryptButtonText": "Encrypt",
+      "decryptButtonText": "Decrypt",
+      "inputSeletectDivText": "Input Format",
+      "outputSeletectDivText": "Output Format",
+      "publickKeySeletectDivText": "Key/IV Format",
+      "encryptModeSelectDivText": "Mode",
+      "nocodeText": "No Code",
+      "hexCodeText": "Hex",
+      "base64CodeText": "Base64",
+      "sourceAndKeyAndIVNotEmptyMessageBody":"The source text, key and IV cannot be empty.",
+      "sourceAndKeyNotEmptyMessageBody":"The source text and key cannot be empty."
+
+    }
+  }
+}

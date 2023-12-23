@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { open } from '@tauri-apps/api/dialog';
 import { useToast } from "@/components/ui/use-toast"
+import { useTranslation, Trans } from "react-i18next";
 
 import {
     Table,
@@ -22,6 +23,7 @@ export default function DigestPage() {
     const [selectedFilePaths, setSelectedFilePaths] = useState<Array<string>>([]);
     const [digestResult, setDigestResult] = useState([]);
     const { toast } = useToast()
+    const { t, i18n } = useTranslation();
 
     const handleValueChange = (e: any) => {
         setCurrentInput(e.target.value);
@@ -30,8 +32,8 @@ export default function DigestPage() {
         if ((currentInput === undefined || currentInput === "")&&(selectedFilePaths === null || selectedFilePaths === undefined || selectedFilePaths.length === 0)) {
             toast({
                 variant: "destructive",
-                title: "错误信息",
-                description: "请输入文本或者选择文件。",
+                title: t('toastMessage.errorMessageTile'),
+                description: t('messageDigestPage.sourceNotEmptyMessageBody'),
             })
             return;
         }
@@ -91,32 +93,32 @@ export default function DigestPage() {
     return (
         <div className=" w-full h-[calc(100vh-30px)] flex flex-col">
             <div className="basis-5/12 p-10 flex flex-row   gap-4 overflow-auto">
-                <Textarea placeholder="请输入需要计算md5的文本。" className="h-full  basis-5/12 resize-none border-foreground/50 border" value={currentInput} onChange={handleValueChange} />
+                <Textarea placeholder={t('messageDigestPage.md5InputTextHolder')} className="h-full  basis-5/12 resize-none border-foreground/50 border" value={currentInput} onChange={handleValueChange} />
                 <div className="basis-1 flex flex-col justify-center h-full">
-                    <h2 >或者</h2>
+                    <h2 >{t('messageDigestPage.orText')}</h2>
                 </div>
                 <div className="h-full overflow-auto flex flex-col basis-1/2 p-1 rounded">
-                    <Label className="basis-1/12 mb-2 font-bold">已经选择的文件列表数为:{selectedFilePaths.length}</Label>
+                    <Label className="basis-1/12 mb-2 font-bold">{t('messageDigestPage.selectedShowText')}:{selectedFilePaths.length}</Label>
                     <ol className="basis-4/5 outline outline-1 rounded   bg-card mb-2 p-2 overflow-auto list-decimal list-inside">
                         {renderFileList()}
                     </ol>
-                    <Button className="basis-1/12 w-full" onClick={handleSelectFileButtonClick} variant="outline">选择文件</Button>
+                    <Button className="basis-1/12 w-full" onClick={handleSelectFileButtonClick} variant="outline">{t('messageDigestPage.selectButtonText')}</Button>
 
                 </div>
             </div>
 
             <div className="basis-1/12 w-full  flex flex-col px-10 mb-10">
-                <Label className="font-bold mb-1 text-red-500">备注:文本和文件至少选择一项,点击执行算法后则会同时执行md5算法和sha256算法</Label>
-                <Button className="flex-1" onClick={calculateDigest}>执行算法(md5,sha256)</Button>
+                <Label className="font-bold mb-1 text-red-500">{t('messageDigestPage.tipsText')}</Label>
+                <Button className="flex-1" onClick={calculateDigest}>{t('messageDigestPage.calculateButtonText')}</Button>
             </div>
             <div className="basis-1/2 p-4 overflow-auto px-10 mb-10">
                 <Table>
                     <TableCaption>执行结果</TableCaption>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[160px]">文件路径/文本</TableHead>
-                            <TableHead className="w-[60px]">Md5</TableHead>
-                            <TableHead className="w-[60px]">Sha256</TableHead>
+                            <TableHead className="w-[160px]">{t('messageDigestPage.tableTitles.first')}</TableHead>
+                            <TableHead className="w-[60px]">{t('messageDigestPage.tableTitles.second')}</TableHead>
+                            <TableHead className="w-[60px]">{t('messageDigestPage.tableTitles.third')}</TableHead>
                         </TableRow>
 
                     </TableHeader>

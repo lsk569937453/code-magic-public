@@ -9,6 +9,9 @@
 .codeMarker {
   @apply bg-destructive absolute z-20;
 }
+.searchMarker {
+  @apply bg-searchMarkerColor absolute z-20;
+}
 @layer base {
   :root {
     
@@ -35,6 +38,8 @@
 
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
+
+    --searchMarkerColor:213 100% 87.5%;
 
     --destructive: 0 100% 50%;
     --destructive-foreground: 210 40% 98%;
@@ -68,9 +73,10 @@
 
     --secondary: 222.2 47.4% 11.2%;
     --secondary-foreground: 210 40% 98%;
+    --searchMarkerColor:250  34% 50%;
 
     --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground:213 25%  100%;
 
     --ring: 216 34% 17%;
 

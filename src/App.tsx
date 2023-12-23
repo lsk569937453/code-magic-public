@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { invoke } from "@tauri-apps/api/tauri"
+import './i18n';
 
 import { Menu } from "@/components/menu"
 

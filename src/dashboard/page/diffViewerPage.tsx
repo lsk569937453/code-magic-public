@@ -2,7 +2,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { useState, Component } from "react"
 import { invoke } from "@tauri-apps/api/tauri";
 import { Button } from "@/components/ui/button"
-import { ColorPicker, useColor } from "react-color-palette";
 import {
   Select,
   SelectContent,
@@ -10,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import "react-color-palette/css";
 import { useToast } from "@/components/ui/use-toast"
 import { render } from "react-dom";
 import { diff as DiffEditor } from "react-ace";
@@ -22,6 +20,7 @@ import "ace-builds/src-noconflict/mode-html";
 import "ace-builds/src-noconflict/mode-yaml";
 import "ace-builds/src-noconflict/theme-github";
 import { useTheme } from "next-themes"
+import { useTranslation, Trans } from "react-i18next";
 
 import "ace-builds/src-noconflict/theme-monokai";
 
@@ -32,6 +31,7 @@ export default function DiffViewerPage() {
   const { toast } = useToast()
   const [differValue, setDifferValue] = useState<any>(["", ""]);
   const { setTheme, theme } = useTheme()
+  const { t, i18n } = useTranslation();
 
   const handleFormatClick = async () => {
     if (currentFormat === "json") {
@@ -151,8 +151,7 @@ export default function DiffViewerPage() {
           <SelectItem value="xml">XML</SelectItem>
         </SelectContent>
       </Select>
-      <Button className="basis-2/12" variant={"outline"} onClick={handleFormatClick}>格式化</Button>
-      {/* <Button className="basis-2/12" onClick={handleShowDiffClick}>{showViewer ? "重新输入" : "开始对比"}</Button> */}
+      <Button className="basis-2/12" variant={"outline"} onClick={handleFormatClick}>{t('differViewPage.formatButtonText')}</Button>
 
 
     </div>
