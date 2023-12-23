@@ -7,6 +7,7 @@ import { render } from "react-dom";
 import AceEditor from "react-ace";
 import { useTheme } from "next-themes"
 import { useToast } from "@/components/ui/use-toast"
+import { useTranslation, Trans } from "react-i18next";
 
 import "ace-builds/src-noconflict/mode-xml";
 import "ace-builds/src-noconflict/theme-monokai";
@@ -18,13 +19,14 @@ export default function FormatXmlPage() {
     const [validJson, setValidJson] = useState<string | null>(null);
     const { setTheme, theme } = useTheme()
     const { toast } = useToast()
+    const { t, i18n } = useTranslation();
 
     const formatPrettyJson = async () => {
         if (currentInput === undefined || currentInput === "") {
             toast({
                 variant: "destructive",
-                title: "错误信息",
-                description: "请先输入字符串。",
+                title: t('toastMessage.errorMessageTile'),
+                description: t('xmlFormatPage.sourceNotEmptyMessageBody'),
             })
             return;
         }
@@ -37,8 +39,8 @@ export default function FormatXmlPage() {
         }else{
             toast({
                 variant: "destructive",
-                title: "错误信息",
-                description: "请输入合法的YAML字符串",
+                title: t('toastMessage.errorMessageTile'),
+                description: t('xmlFormatPage.sourceNotValidMessageBody'),
             })
         }
     }
@@ -56,12 +58,12 @@ export default function FormatXmlPage() {
                     className="border-foreground/50 border rounded"
                     width="100%"
                     height="100%"
-                    placeholder="请输入需要格式化的文本。"
+                    placeholder={t('formatToolsPage.formatInputPlaceHolder')}
                     mode="xml"
                     theme={theme==="dark"?"monokai":"github"}
                     name="blah2"
                     value={currentInput} onChange={handleValueChange}
-                    fontSize={14}
+                    fontSize={16}
                     editorProps={{ $blockScrolling: true }}
 
                     showPrintMargin={true}
@@ -79,7 +81,7 @@ export default function FormatXmlPage() {
                 />
             </div>
             <div className="1/12 mb-10">
-                <Button className="w-full" onClick={formatPrettyJson}>格式化</Button>
+                <Button className="w-full" onClick={formatPrettyJson}>{t('formatToolsPage.buttonText')}</Button>
             </div>
 
 

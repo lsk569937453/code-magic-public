@@ -112,7 +112,8 @@ fn main() -> Result<(), anyhow::Error> {
             format_pretty_xml,
             get_about_version,
             get_menu_config,
-            set_menu_index
+            set_menu_index,
+            reset_menu_index
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

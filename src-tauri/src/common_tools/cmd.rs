@@ -23,6 +23,7 @@ use crate::common_tools::qrcode::export_qrcode_with_error;
 use crate::common_tools::qrcode::get_barcode_with_error;
 use crate::common_tools::qrcode::get_qrcode_with_error;
 use crate::common_tools::sql_lite::get_menu_config_with_error;
+use crate::common_tools::sql_lite::reset_menu_index_with_error;
 use crate::common_tools::sql_lite::set_menu_index_with_error;
 use crate::common_tools::sql_lite::GetMenuConfigReq;
 use crate::common_tools::timestamp::format_datetime_to_timestamp_with_error;
@@ -540,6 +541,25 @@ pub fn get_menu_config(
     get_menu_config_reqs: Vec<GetMenuConfigReq>,
 ) -> String {
     match get_menu_config_with_error(state, get_menu_config_reqs) {
+        Ok(item) => {
+            let res = BaseResponse {
+                response_code: 0,
+                response_msg: item,
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+        Err(e) => {
+            let res = BaseResponse {
+                response_code: 1,
+                response_msg: e.to_string(),
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+    }
+}
+#[tauri::command]
+pub fn reset_menu_index(state: State<SqlLiteState>) -> String {
+    match reset_menu_index_with_error(state) {
         Ok(item) => {
             let res = BaseResponse {
                 response_code: 0,

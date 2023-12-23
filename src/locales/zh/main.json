@@ -1,0 +1,186 @@
+{
+  "toastMessage":{
+    "errorMessageTile":"错误消息"
+  },
+  "messageBody":{
+    "sourceShouldNotEmptyText":"请先输入字符串。"
+  },
+  "toolBar": {
+    "app": {
+      "name": "应用",
+      "first_item":"关于",
+      "second_item":"设置"
+    },
+    "theme": {
+      "name": "主题",
+      "first_item":"淡色",
+      "second_item":"暗黑",
+      "third_item":"系统"
+    } ,
+    "language":{
+      "name":"语言",
+      "english":"英语",
+      "chinese":"中文"
+    }
+  },
+  "menu":{
+    "title":"常用工具",
+    "0":"转换工具",
+    "1":"格式化",
+    "2":"Url Encode/Decode",
+    "3":"摘要算法(MD5,SHA)",
+    "4":"时间戳",
+    "5":"二维码/条形码",
+    "6":"调色器",
+    "7":"文本对比",
+    "8":"加密算法"
+  },
+
+  "aboutDialog":{
+    "doc":"本地离线小工具库。"
+  },
+  "preferenceDialog":{
+    "resetMenuIndexButtonText":"重置菜单编号"
+  },
+  "convertToolsPage":{
+    "base64TextTabName":"Base64文本",
+    "base64ImageTabName":"Base64图片",
+    "halfFullTabName":"全角/半角",
+    "regexName":"正则"
+  },
+  "formatToolsPage":{
+    "buttonText":"格式化",
+    "formatInputPlaceHolder":"请输入需要格式化的文本"
+  },
+  "regexPage":{
+    "regexInputPlaceHolder":"请输入正则表达式",
+    "testInputPlaceHolder":"请输入测试文本。"
+
+  },
+
+  "base64TextPage":{
+    "codeButtonText":"编码",
+    "decodeButtonText":"解码",
+    "inputTextPlaceHolder":"请输入需要转换的文本。",
+    "sourceTextNotEmptyMessageBody":"请输入需要转换的文本。"
+
+
+  },
+  "base64ImagePage":{
+    "imageSelectButtonText":"选择图片",
+    "downloadButtonText":"下载图片",
+    "coppyButtonText":"复制",
+    "inputTextPlaceHolder":"请输入图片的base64字符串",
+    "base64ShouldNotEmptyMessageBody":"请先输入图像的base64字符串。",
+    "imageShouldNotEmptyMessageBody":"请先选择图片。",
+    "base64ShouldValidMessageBody":"请输入合法的base64字符串。"
+  },
+  "halfFullPage":{
+    "inputTextPlaceHolder":"请输入需要转换的文本。",
+    "codeButtonText":"半角转全角",
+    "decodeButtonText":"全角转半角",
+    "sourceNotEmptyMessageBody":"请输入需要转换的文本。"
+
+  },
+  "urlEncodePage":{
+    "codeButtonText":"编码",
+    "decodeButtonText":"解码",
+    "inputTextPlaceHolder":"请输入需要转换的文本。",
+    "sourceNotEmptyMessageBody":"请先输入字符串。"
+
+  },
+  
+  "messageDigestPage":{
+    "md5InputTextHolder":"请输入需要计算md5的文本",
+    "orText":"或者",
+    "selectedShowText":"已经选择的文件列表数为:",
+    "selectButtonText":"选择文件",
+    "tipsText":"备注:文本和文件至少选择一项,点击执行算法后则会同时执行md5算法和sha256算法",
+    "calculateButtonText":"执行算法(MD5,SHA256)",
+    "sourceNotEmptyMessageBody":"请输入文本或者选择文件。",
+    "tableTitles":{
+      "first":"文件路径/文本",
+      "second":"MD5",
+      "third":"SHA256"
+    }
+  },
+  "jsonFormatPage":{
+    "sourceNotEmptyMessageBody":"请先输入字符串。",
+    "sourceNotValidMessageBody":"请输入合法的json字符串。"
+
+  },
+  "xmlFormatPage":{
+    "sourceNotEmptyMessageBody":"请先输入字符串。",
+    "sourceNotValidMessageBody":"请输入合法的xml字符串。"
+  },
+  "yamlFormatPage":{
+    "sourceNotEmptyMessageBody":"请先输入字符串。",
+    "sourceNotValidMessageBody":"请输入合法的yaml字符串。"
+  },
+  "timestampPage":{
+    "currentTimestampText":"当前时间戳",
+    "timestampDivText":"时间戳",
+    "timestampInputHolder":"请输入时间戳.",
+    "timestampButtonText":"转换",
+    "dateDivText":"时间",
+    "DateInputHolder":"YYYY-MM-DD HH:MM:SS"
+  },
+  "qrcodePage":{
+    "qrcodeButtonText":"生成二维码",
+    "barcodeButtonText":"生成条形码",
+    "qrcodeInputTextHolder":"请输入文本.",
+    "exportButtonText":"导出图片",
+    "filePathDivText":"导出的文件路径：",
+    "barcodeTips":"条形码默认使用39条形码:包含有:0~9 的数字，大写 A~Z 的英文字母，「+」，「-」，「/」，「%」，「$」，「.」，以及空格符(Space)等,共44组编码。",
+    "sourceNotEmptyMessageBody":"请先输入字符串。"
+
+  },
+  "differViewPage":{
+    "formatButtonText":"格式化"
+  },
+  "encryptToolsPage":{
+    "sm2Page":{
+      "inputTextPlaceHolder":"请输入需要加密/解密的文本.",
+      "generatePublicKeyButtonText":"生成随机秘钥(HEX编码)",
+      "publicKeyInputTextHolder":"请输入公钥。",
+      "privateKeyInputTextHolder":"请输入私钥。",
+      "encryptButtonText":"加密",
+      "decryptButtonText":"解密",
+      "inputSeletectDivText":"输入格式",
+      "outputSeletectDivText":"输出格式",
+      "publickKeySeletectDivText":"公钥数据格式",
+      "privateKeySeletectDivText":"私钥数据格式",
+      "encryptOrderSelectDivText":"密文顺序",
+      "nocodeText":"无编码",
+      "hexCodeText":"Hex编码",
+      "base64CodeText":"Base64编码",
+      "sourceAndPublicKeyNotEmptyMessageBody":"文本输入和公钥不能为空。",
+      "sourceAndPrivateKeyNotEmptyMessageBody":"文本输入和私钥不能为空。"
+
+
+    },
+    "sm3Page":{
+      "inputTextPlaceHolder":"请输入需要加密的文本.",
+      "encryptButtonText":"加密",
+      "sourceNotEmptyMessageBody":"文本输入不能为空。"
+
+    },
+    "sm4Page":{
+      "inputTextPlaceHolder":"请输入需要加密/解密的文本.",
+      "keyInputTextHolder":"请输入秘钥。",
+      "ivInputTextHolder":"请输入IV。",
+      "encryptButtonText":"加密",
+      "decryptButtonText":"解密",
+      "inputSeletectDivText":"输入格式",
+      "outputSeletectDivText":"输出格式",
+      "publickKeySeletectDivText":"秘钥/IV 格式",
+      "encryptModeSelectDivText":"加解密模式",
+      "nocodeText":"无编码",
+      "hexCodeText":"Hex编码",
+      "base64CodeText":"Base64编码",
+      "sourceAndKeyAndIVNotEmptyMessageBody":"文本输入、密钥和初始向量不能为空。",
+      "sourceAndKeyNotEmptyMessageBody":"文本输入、密钥不能为空。"
+
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input";
+import { useTranslation, Trans } from "react-i18next";
 
 export default function TimestampPage() {
     const [currentTimestamp, setCurrentTimestamp] = useState();
@@ -11,13 +12,14 @@ export default function TimestampPage() {
     const [outputDateTime,setOutputDateTime]=useState();
     const [inputDateTime,setInputDateTime]=useState();
     const [outputTimestamp,setOutputTimestamp]=useState();
+    const { t, i18n } = useTranslation();
+
     useEffect(() => {
         const interval = setInterval(() => {
             getCurrentTimestamp();
         }, 1000);
         return () => clearInterval(interval);
     }, []);
-    //首次渲染
     useEffect(()=>{
         getCurrentTimestamp();
     },[]);
@@ -59,19 +61,19 @@ export default function TimestampPage() {
     return (
         <div className="h-1/2 p-10 flex flex-col">
             <div className="mb-4 flex flex-row text-center">
-            <p className="basis-2/12 flex justify-center items-center font-bold">当前时间戳:</p>
+            <p className="basis-2/12 flex justify-center items-center font-bold">{t('timestampPage.currentTimestampText')}</p>
                 <Label className="basis-4/12 font-bold text-red-500">{currentTimestamp}</Label>
             </div>
             <div className="flex flex-row gap-4 mb-4">
-            <p className="basis-2/12 flex justify-center items-center font-bold">时间戳:</p>
-                <Input className="basis-4/12 border-foreground/50 border" placeholder="请输入时间戳。" value={inputTimestamp} onChange={inputTimestampOnChange}></Input>
-                <Button className="basis-2/12" onClick={convertTimestampToDate}>转换</Button>
+            <p className="basis-2/12 flex justify-center items-center font-bold">{t('timestampPage.timestampDivText')}</p>
+                <Input className="basis-4/12 border-foreground/50 border" placeholder={t('timestampPage.timestampInputHolder')} value={inputTimestamp} onChange={inputTimestampOnChange}></Input>
+                <Button className="basis-2/12" onClick={convertTimestampToDate}>{t('timestampPage.timestampButtonText')}</Button>
                 <Input className="basis-4/12 border-foreground/50 border" value={outputDateTime}></Input>
             </div>
             <div className="flex flex-row gap-4 ">
-                <p className="basis-2/12 flex justify-center items-center font-bold">时间:</p>
-                <Input className="basis-4/12 border-foreground/50 border" placeholder="YYYY-MM-DD HH:MM:SS" value={inputDateTime} onChange={inputDateTimeOnChange}></Input>
-                <Button className="basis-2/12" onClick={convertDatetimeToTimestamp}>转换</Button>
+                <p className="basis-2/12 flex justify-center items-center font-bold">{t('timestampPage.dateDivText')}</p>
+                <Input className="basis-4/12 border-foreground/50 border" placeholder={t('timestampPage.DateInputHolder')} value={inputDateTime} onChange={inputDateTimeOnChange}></Input>
+                <Button className="basis-2/12" onClick={convertDatetimeToTimestamp}>{t('timestampPage.timestampButtonText')}</Button>
                 <Input className="basis-4/12 border-foreground/50 border" value={outputTimestamp}></Input>
             </div>
         </div>

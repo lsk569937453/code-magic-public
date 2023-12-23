@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import AceEditor from "react-ace";
 import { useToast } from "@/components/ui/use-toast"
+import { useTranslation, Trans } from "react-i18next";
 
 import "ace-builds/src-noconflict/mode-yaml";
 import "ace-builds/src-noconflict/theme-github";
@@ -17,13 +18,14 @@ export default function FormatYamlPage() {
     const [validJson, setValidJson] = useState<object|null>(null);
     const { setTheme, theme } = useTheme()
     const { toast } = useToast()
+    const { t, i18n } = useTranslation();
 
     const formatPrettyYaml = async () => {
         if (currentInput === undefined || currentInput === "") {
             toast({
                 variant: "destructive",
-                title: "错误信息",
-                description: "请先输入字符串。",
+                title: t('toastMessage.errorMessageTile'),
+                description: t('yamlFormatPage.sourceNotEmptyMessageBody'),
             })
             return;
         }
@@ -39,8 +41,8 @@ export default function FormatYamlPage() {
         }else{
             toast({
                 variant: "destructive",
-                title: "错误信息",
-                description: "请输入合法的YAML字符串",
+                title: t('toastMessage.errorMessageTile'),
+                description: t('yamlFormatPage.sourceNotValidMessageBody'),
             })
         }
     }
@@ -56,12 +58,12 @@ export default function FormatYamlPage() {
                     className="border-foreground/50 border rounded"
                     width="100%"
                     height="100%"
-                    placeholder="请输入需要格式化的文本。"
+                    placeholder={t('formatToolsPage.formatInputPlaceHolder')}
                     mode="yaml"
                     theme={theme==="dark"?"monokai":"github"}
                     name="blah2"
                     value={currentInput} onChange={handleValueChange}
-                    fontSize={14}
+                    fontSize={16}
                     editorProps={{ $blockScrolling: true }}
 
                     showPrintMargin={true}
@@ -79,7 +81,7 @@ export default function FormatYamlPage() {
                 />
             </div>
             <div className="1/12 mb-10">
-                    <Button className="w-full" onClick={formatPrettyYaml}>格式化</Button>
+                    <Button className="w-full" onClick={formatPrettyYaml}>{t('formatToolsPage.buttonText')}</Button>
                 </div>
             {/* {validJson&&<>
             <p className="mb-2 font-bold text-red-500">json的树形结构为:</p>

@@ -9,12 +9,15 @@ import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { invoke } from "@tauri-apps/api/tauri";
 import { useToast } from "@/components/ui/use-toast"
 
+import { useTranslation, Trans } from "react-i18next";
 
 export function Base64ImagePage() {
     const [file, setFile] = useState<any>();
     const [text, setText] = useState();
     const [imageStr, setImageStr] = useState<any>();
     const [imageSavePath, setImageSavePath] = useState<any>();
+    const { t, i18n } = useTranslation();
+
     const { toast } = useToast()
 
     const handleValueChange = (e: any) => {
@@ -41,8 +44,8 @@ export function Base64ImagePage() {
         if (text === undefined || text === "") {
             toast({
                 variant: "destructive",
-                title: "错误信息",
-                description: "请先输入图像的base64字符串。",
+                title: t('toastMessage.errorMessageTile'),
+                description: t('base64ImagePage.base64ShouldNotEmptyMessageBody'),
             })
             return;
         }
@@ -52,8 +55,8 @@ export function Base64ImagePage() {
         if (file === undefined || file === "") {
             toast({
                 variant: "destructive",
-                title: "错误信息",
-                description: "请先选择图片。",
+                title: t('toastMessage.errorMessageTile'),
+                description: t('base64ImagePage.imageShouldNotEmptyMessageBody'),
             })
             return;
         }
@@ -69,8 +72,8 @@ export function Base64ImagePage() {
         if (text === undefined || text === "") {
             toast({
                 variant: "destructive",
-                title: "错误信息",
-                description: "请输入合法的base64字符串。",
+                title: t('toastMessage.errorMessageTile'),
+                description:  t('base64ImagePage.base64ShouldValidMessageBody'),
             })
             return;
         }
@@ -88,7 +91,7 @@ export function Base64ImagePage() {
     return (
         <div className="h-1/2 flex flex-row gap-4">
             {imageStr ? <img src={imageStr} className="h-full basis-1/2 overflow-auto" /> : <Button onClick={buttonClick} variant="outline" className="h-full basis-1/2 text-3xl border-foreground/50 border">
-                选择图片
+               {t('base64ImagePage.imageSelectButtonText')}
             </Button>}
 
             <div className="h-full flex flex-col justify-center gap-4 basis-1/6 ">
@@ -101,11 +104,11 @@ export function Base64ImagePage() {
                 </Button>
             </div>
             <div className="h-full basis-1/2 flex flex-col gap-4">
-                <Textarea placeholder="请输入图片的base64字符串。" className="basis-11/12 resize-none border-foreground/50 border" value={text} onChange={handleValueChange} />
+                <Textarea placeholder={t('base64ImagePage.inputTextPlaceHolder')} className="basis-11/12 resize-none border-foreground/50 border" value={text} onChange={handleValueChange} />
                 <div className="w-full flex flex-row gap-4">
-                    <Button className="basis-4/12" onClick={handleSaveImageButtonClick}>下载图片</Button>
+                    <Button className="basis-4/12" onClick={handleSaveImageButtonClick}> {t('base64ImagePage.downloadButtonText')}</Button>
                     <Input className="basis-6/12" value={imageSavePath}></Input>
-                    <Button className="basis-2/12" onClick={handleCopyButtonClick}>复制</Button>
+                    <Button className="basis-2/12" onClick={handleCopyButtonClick}>{t('base64ImagePage.coppyButtonText')}</Button>
 
                 </div>
 

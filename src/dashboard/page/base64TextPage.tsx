@@ -3,16 +3,23 @@ import { useState } from "react"
 import { invoke } from "@tauri-apps/api/tauri";
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
+import { useTranslation, Trans } from "react-i18next";
+
+
+
 export function Base64TextPage() {
+    const { t, i18n } = useTranslation();
+
     const [currentInput, setCurrentInput] = useState();
     const { toast } = useToast()
 
     const base64Encode = async () => {
+        i18n.changeLanguage("zh");
         if (currentInput === undefined || currentInput === "") {
             toast({
                 variant: "destructive",
-                title: "错误信息",
-                description: "请输入需要转换的文本。",
+                title: t('toastMessage.errorMessageTile'),
+                description: t('base64TextPage.sourceTextNotEmptyMessageBody'),
             })
             return;
         }
@@ -25,11 +32,13 @@ export function Base64TextPage() {
         }
     }
     const base64Decode = async () => {
+        i18n.changeLanguage("en");
+
         if (currentInput === undefined || currentInput === "") {
             toast({
                 variant: "destructive",
-                title: "错误信息",
-                description: "请输入需要转换的文本。",
+                title: t('toastMessage.errorMessageTile'),
+                description: t('base64TextPage.sourceTextNotEmptyMessageBody'),
             })
             return;
         }
@@ -46,10 +55,11 @@ export function Base64TextPage() {
     }
     return (
         <>
-            <Textarea placeholder="请输入需要转换的文本。" className="h-1/2 mb-10 resize-none border-foreground/50 border" value={currentInput} onChange={handleValueChange} />
+            <Textarea placeholder={t('base64TextPage.inputTextPlaceHolder')} className="h-1/2 mb-10 resize-none border-foreground/50 border" value={currentInput} onChange={handleValueChange} />
             <div className="w-full flex gap-10">
-                <Button className="flex-1" onClick={base64Encode}>编码</Button>
-                <Button className="flex-1" onClick={base64Decode}>解码</Button>
+                <Button className="flex-1" onClick={base64Encode}>{t('base64TextPage.codeButtonText')}</Button>
+                <Button className="flex-1" onClick={base64Decode}>{t('base64TextPage.decodeButtonText')}</Button>
+
             </div>
         </>
 
