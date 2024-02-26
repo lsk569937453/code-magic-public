@@ -121,8 +121,14 @@ export default function DiffViewerPage() {
     setDifferValue(finalResult);
   }
   const differValueOnChange = (v: any) => {
-    console.log(v);
-    setDifferValue(v);
+    const [arr1,arr2]=v;
+    const newArr1=arr1.replaceAll('\r\n', '\n');
+    const newArr2=arr2.replaceAll('\r\n', '\n');
+    const newV=[];
+    newV.push(newArr1);
+    newV.push(newArr2);
+
+    setDifferValue(newV);
   }
   return (<div className="p-10 flex flex-col h-[calc(100vh-30px)]">
     <div className="basis-11/12 mb-10">

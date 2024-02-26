@@ -14,7 +14,6 @@ export function Base64TextPage() {
     const { toast } = useToast()
 
     const base64Encode = async () => {
-        i18n.changeLanguage("zh");
         if (currentInput === undefined || currentInput === "") {
             toast({
                 variant: "destructive",
@@ -32,7 +31,6 @@ export function Base64TextPage() {
         }
     }
     const base64Decode = async () => {
-        i18n.changeLanguage("en");
 
         if (currentInput === undefined || currentInput === "") {
             toast({

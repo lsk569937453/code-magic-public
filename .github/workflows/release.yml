@@ -29,8 +29,8 @@ jobs:
 
                 # ghcr.io/cross-rs/aarch64-unknown-linux-gnu:main
     runs-on: ${{ matrix.platform }}
-    # container:
-    #   image: ${{ matrix.image }}
+    container:
+      image: ${{ matrix.image }}
     steps:
 
 

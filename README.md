@@ -2,6 +2,7 @@
 ## 主要功能
 本地离线工具集合，包含以下功能:
 - base64转码/解码:文本转base64,base64转文本，图片转base64，base64转图片
+- 正则表达式
 - 格式化:格式化json/yaml/xml
 - urlEncode/urlDecode
 - 摘要算法:计算文本的md5,sha256。计算多个文件的md5,sha256
@@ -10,6 +11,8 @@
 - 调色板
 - 文本对比工具
 - 国密算法(SM2,SM3,SM4)
+- 国际化:支持中文,英文
+- 支持菜单项重排:将自己常用的功能置顶。
 
 ## relase 下载地址
 https://github.com/lsk569937453/code-magic-public/releases

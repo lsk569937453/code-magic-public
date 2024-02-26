@@ -48,6 +48,7 @@
     "cmdk": "^0.2.0",
     "date-fns": "^2.30.0",
     "i18next": "^23.7.11",
+    "i18next-browser-languagedetector": "^7.2.0",
     "lucide-react": "^0.263.1",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",

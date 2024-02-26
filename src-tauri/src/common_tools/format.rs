@@ -1,6 +1,6 @@
 use quick_xml::events::Event;
 use quick_xml::{Reader, Writer};
-
+use sqlformat::*;
 pub fn format_pretty_json_with_error(source_string: String) -> Result<String, anyhow::Error> {
     let source: serde_json::value::Value =
         serde_json::from_str(&source_string).map_err(|e| anyhow::anyhow!(e))?;
@@ -12,6 +12,14 @@ pub fn format_pretty_yaml_with_error(source_string: String) -> Result<String, an
     let source: serde_yaml::value::Value =
         serde_yaml::from_str(&source_string).map_err(|e| anyhow::anyhow!(e))?;
     let res = serde_yaml::to_string(&source)?;
+    Ok(res)
+}
+pub fn foramt_pretty_sql_with_error(source_string: String) -> Result<String, anyhow::Error> {
+    let res = format(
+        source_string.as_str(),
+        &QueryParams::None,
+        FormatOptions::default(),
+    );
     Ok(res)
 }
 pub fn format_xml_with_error(source_string: String) -> Result<String, anyhow::Error> {

@@ -1,6 +1,6 @@
 [package]
 name = "code_magic"
-version = "0.0.19"
+version = "0.0.20"
 description = "A development tools"
 authors = ["lsk"]
 license = "MIT"
@@ -45,6 +45,7 @@ hex = "0.4"
 num = "0.4"
 rusqlite = { version = "0.30.0", features = ["bundled"] }
 serde_repr = "0.1.17"
+sqlformat = "0.2.3"
 [features]
 # by default Tauri runs in production mode
 # when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL

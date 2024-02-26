@@ -110,6 +110,7 @@ fn main() -> Result<(), anyhow::Error> {
             format_pretty_json,
             format_pretty_yaml,
             format_pretty_xml,
+            foramt_pretty_sql,
             get_about_version,
             get_menu_config,
             set_menu_index,

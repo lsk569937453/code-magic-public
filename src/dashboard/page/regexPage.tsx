@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { invoke } from "@tauri-apps/api/tauri";
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
@@ -19,21 +19,19 @@ import { useTheme } from "next-themes"
 
 export function RegexPage() {
     const { t, i18n } = useTranslation();
-    const [currentRegex, setCurrentRegex] = useState<any>();
-    const [currentInput, setCurrentInput] = useState();
+    const [currentRegex, setCurrentRegex] = useState<any>('([A-Z])\\w+');
+    const [currentInput, setCurrentInput] = useState("RegExr was created by gskinner.com. Edit the Expression & Text to see matches. Roll over matches or the expression for details. PCRE & JavaScript flavors of RegEx are supported. Validate your expression with Tests mode. The side bar includes a Cheatsheet, full Reference, and Help. You can also Save & Share with the Community and view patterns you create or favorite in My Patterns. Explore results with the Tools below. Replace & List output custom results. Details lists capture groups. Explain describes your expression in plain English.");
     const { toast } = useToast()
     const { setTheme, theme } = useTheme()
     const aceEditorRef = useRef<ReactAce | null>(null);
 
+    useEffect(() => {
+        showRegex(currentRegex);
+    }, [])
 
-    const handleRegexInputOnChange = (t: any) => {
-        // const e = require("ace-builds/src-noconflict/ext-searchbox");
-        // e.Search(aceEditorRef.current?.editor, true);
-        setCurrentRegex(t.target.value);
-        console.log("t is:",t);
-        // const regex = new RegExp('([A-Z])\\w+', 'gm');
-        // const regex2 = /([A-Z])\w+/gm;
-        const regex = new RegExp(t.target.value, 'gm');
+    const showRegex=(v:any)=>{
+        console.log("v is :"+v);
+        const regex = new RegExp(v, 'gm');
         // regexpX.test(:'RegExr was created by gskinner.com');
         console.log(aceEditorRef.current);
         // aceEditorRef.current?.editor.findAll(regexp,{
@@ -61,6 +59,12 @@ export function RegexPage() {
             aceEditorRef.current?.editor.getSession().addMarker(element, "searchMarker", "text");
 
         });
+    }
+    const handleRegexInputOnChange = (t: any) => {
+        // const e = require("ace-builds/src-noconflict/ext-searchbox");
+        // e.Search(aceEditorRef.current?.editor, true);
+        setCurrentRegex(t.target.value);
+        showRegex(t.target.value);
 
     }
     
@@ -72,7 +76,7 @@ export function RegexPage() {
         <>
             <div className="flex flex-col h-[calc(100vh-30px)] gap-4">
                 <div >
-                    <Input placeholder={t('regexPage.regexInputPlaceHolder')} onChange={handleRegexInputOnChange}></Input>
+                    <Input value={currentRegex} placeholder={t('regexPage.regexInputPlaceHolder')} onChange={handleRegexInputOnChange}></Input>
                 </div>
                 <div className="basis-8/12">
 

@@ -14,6 +14,7 @@ use crate::common_tools::crypto_algorithm::sm4_decrypt_with_error;
 use crate::common_tools::crypto_algorithm::sm4_encrypt_with_error;
 use crate::common_tools::crypto_algorithm::Sm2EncryptRequest;
 use crate::common_tools::crypto_algorithm::Sm4EncryptRequest;
+use crate::common_tools::format::foramt_pretty_sql_with_error;
 use crate::common_tools::format::format_pretty_json_with_error;
 use crate::common_tools::format::format_pretty_yaml_with_error;
 use crate::common_tools::format::format_xml_with_error;
@@ -500,6 +501,25 @@ pub fn format_pretty_yaml(source_string: String) -> String {
 #[tauri::command]
 pub fn format_pretty_xml(source_string: String) -> String {
     match format_xml_with_error(source_string) {
+        Ok(item) => {
+            let res = BaseResponse {
+                response_code: 0,
+                response_msg: item,
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+        Err(e) => {
+            let res = BaseResponse {
+                response_code: 1,
+                response_msg: e.to_string(),
+            };
+            serde_json::to_string(&res).unwrap()
+        }
+    }
+}
+#[tauri::command]
+pub fn foramt_pretty_sql(source_string: String) -> String {
+    match foramt_pretty_sql_with_error(source_string) {
         Ok(item) => {
             let res = BaseResponse {
                 response_code: 0,
